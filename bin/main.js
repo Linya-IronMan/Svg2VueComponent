@@ -29,24 +29,25 @@ function getFilesInDir(path) {
 }
 
 function getVuecomponent(svgText) {
-  return `<template>
-        ${svgText}
-        </template>
+  return `
+<template>
+  ${svgText}
+</template>
 
-        <script lang="ts">
-        import { Component, Vue, Prop } from "vue-property-decorator";
+<script lang="ts">
+  import { Component, Vue, Prop } from "vue-property-decorator";
 
-        @Component({
-        name: "IconDrink",
-        })
-        export default class extends Vue {
-        @Prop({ default: "20" }) readonly width!: string;
+@Component({
+  name: "IconDrink",
+})
+export default class extends Vue {
+  @Prop({ default: "20" }) readonly width!: string;
 
-        @Prop({ default: "20" }) readonly height!: string;
+  @Prop({ default: "20" }) readonly height!: string;
 
-        @Prop({ default: "#000000" }) readonly fill!: string;
-        }
-        </script>`;
+  @Prop({ default: "#000000" }) readonly fill!: string;
+}
+</script>`;
 }
 
 /**
