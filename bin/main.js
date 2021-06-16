@@ -82,6 +82,7 @@ let progress = new ProgressBar();
       { RegRule: /width="(\d)*[a-z]*"/, newStr: `:width="width"` },
       { RegRule: /height="(\d)*\.(\d)*[a-z]*"/, newStr: `:height="height"` },
       { RegRule: /fill="#(\d)*"/g, newStr: `:fill="fill"` },
+      { RegRule: /<\?xml.+><svg/, newStr: `<svg` },
     ]);
     let vueContent = getVuecomponent(newSvg);
     vueContent = replaceTextInSvg(vueContent, [
