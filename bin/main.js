@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
 const _string = require("lodash/string");
+const ProgressBar = require("./progress");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -64,10 +65,14 @@ function replaceTextInSvg(text, rules) {
   return text;
 }
 
+let progress = new ProgressBar();
+
 (async () => {
   absolutePath = "svg";
   // TODO: 对文件路径进行校验
   const files = await fs.readdirSync(absolutePath);
+  let count_total = files.length;
+  let count_completed = 0;
 
   files.forEach(async (filename) => {
     const fileContent = await fs.readFileSync(`${absolutePath}/${filename}`, {
@@ -77,12 +82,26 @@ function replaceTextInSvg(text, rules) {
       { RegRule: /width="(\d)*[a-z]*"/, newStr: `:width="width"` },
       { RegRule: /height="(\d)*\.(\d)*[a-z]*"/, newStr: `:height="height"` },
       { RegRule: /fill="#(\d)*"/g, newStr: `:fill="fill"` },
-      { RegRule: /name=".+"/, newStr: `name="Icon${_string.camelCase(filename)}"`}
     ]);
-    const vueContent = getVuecomponent(newSvg);
+    let vueContent = getVuecomponent(newSvg);
+    vueContent = replaceTextInSvg(vueContent, [
+      {
+        RegRule: /name: ".*"/g,
+        newStr: `name: "Icon${_string.upperFirst(
+          _string.camelCase(filename.replace(/\.svg/, ""))
+        )}"`,
+      },
+    ]);
+
     fs.writeFileSync(
-      `./components/Icon${_string.camelCase(filename.replace(/\.svg/, ""))}.vue`,
+      `./components/Icon${_string.upperFirst(
+        _string.camelCase(filename.replace(/\.svg/, ""))
+      )}.vue`,
       vueContent
     );
+    progress.render({
+      completed: ++count_completed,
+      total: count_total,
+    });
   });
 })();
