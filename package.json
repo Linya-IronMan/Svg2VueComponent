@@ -14,6 +14,7 @@
     "transSvg2Vue": "./bin/main.js"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "single-line-log": "^1.1.2"
   }
 }
