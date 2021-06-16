@@ -93,13 +93,13 @@ let progress = new ProgressBar();
         )}"`,
       },
     ]);
+    let newModuleName = `Icon${_string.upperFirst(
+      _string.camelCase(filename.replace(/\.svg/, ""))
+    )}`;
 
-    fs.writeFileSync(
-      `./components/Icon${_string.upperFirst(
-        _string.camelCase(filename.replace(/\.svg/, ""))
-      )}.vue`,
-      vueContent
-    );
+    fs.writeFileSync(`./components/${newModuleName}.vue`, vueContent);
+    fs.appendFileSync("./import.js", `import ${newModuleName} from "@/components/SvgIconProject/${newModuleName}.vue";\n`);
+
     progress.render({
       completed: ++count_completed,
       total: count_total,
