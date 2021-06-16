@@ -4,12 +4,16 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "test1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bin": {
-    "test1": "./bin/main.js"
+    "transSvg2Vue": "./bin/main.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
