@@ -1,6 +1,9 @@
 # sturdy-happiness
 将svg文件批量生成 vue 组件
 
+# task_list
+- [ ] 输出引入路径
+- [ ] 打开web页面输入进行配置
 
 # step
 
